@@ -10,17 +10,17 @@ const Results = ({ data, isLoading }) => {
           <ResultItem
             className="text-center md:border-l-2 md:pl-5 md:text-left"
             title="location"
-            content={`${data.city} ${data.zip}`}
+            content={`${data.location.city} ${data.location.postalCode}`}
           />
           <ResultItem
             className="md:border-l-2 md:pl-5"
             title="timezone"
-            content={data.timezone}
+            content={data.location.timezone}
           />
           <ResultItem
             className="text-center md:border-l-2 md:pl-5"
             title="isp"
-            content={data?.isp}
+            content={data.isp}
           />
         </>
       )}

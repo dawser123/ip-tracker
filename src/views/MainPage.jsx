@@ -6,34 +6,40 @@ import { useState } from "react";
 const apiKEY = import.meta.env.VITE_REACT_APP_API_KEY;
 const MainPage = () => {
   const [data, setData] = useState({
-    ip: "142.250.180.14",
-    city: "London",
-    zip: "W1B",
-    timezone: "Europe/London",
+    ip: "8.8.8.8",
+    location: {
+      country: "US",
+      city: "California",
+      timezone: "-07:00",
+      postalCode: "94043",
+      lat: "40.52006",
+      lng: "-82.09737",
+    },
     isp: "Google LLC",
-    lat: "51.5072",
-    lon: "-0.127586",
+
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState("142.250.180.14");
+  const [inputValue, setInputValue] = useState("8.8.8.8");
   const [error, setError] = useState("");
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKEY}&ip=${inputValue}`,
+        `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKEY}&ipAddress=${inputValue}`,
       );
       setData({
         ip: response.data.ip,
-
-        city: response.data.country_capital,
-        zip: response.data.zipcode,
-
-        timezone: response.data.time_zone.offset,
+        location: {
+          country: response.data.location.country,
+          city: response.data.location.city,
+          postalCode: response.data.location.postalCode,
+          timezone: response.data.location.timezone,
+          lat: response.data.location.lat,
+          lng: response.data.location.lng,
+        },
         isp: response.data.isp,
-        lat: response.data.latitude,
-        lon: response.data.longitude,
       });
+      console.log(response);
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
@@ -72,8 +78,8 @@ const MainPage = () => {
       </div>
       <div className="h-full w-full ">
         <MapContainer
-          key={`${data.lat}-${data.lon}`}
-          center={[data.lat, data.lon]}
+          key={`${data.location.lat}-${data.location.lng}`}
+          center={[data.location.lat, data.location.lng]}
           zoom={13}
           scrollWheelZoom={true}
         >
@@ -82,8 +88,8 @@ const MainPage = () => {
             attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           <Marker
-            key={`${data.lat}-${data.lon}`}
-            position={[data.lat, data.lon]}
+              key={`${data.location.lat}-${data.location.lng}`}
+              position={[data.location.lat, data.location.lng]}
           >
             <Popup>{data.isp}</Popup>
           </Marker>
