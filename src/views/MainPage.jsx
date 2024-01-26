@@ -39,7 +39,7 @@ const MainPage = () => {
         },
         isp: response.data.isp,
       });
-      console.log(response);
+    
       setIsLoading(false);
     } catch (error) {
       setError(error.message);
