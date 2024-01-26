@@ -22,7 +22,7 @@ This is a solution to the [IP-tracker](https://www.frontendmentor.io/challenges/
 - React
 - Axios
 - [React Leaflet](https://react-leaflet.js.org/) - React Map Integration
-- [IP Geolocation API](https://ipgeolocation.io/) -  API to get IP-adress or domain
+- [IPify Geolocation](https://geo.ipify.org/) -  API to get IP-adress
  ### What I learned
  In this project, I learned the process of searching for any IP address. The application is built using React, Axios for API data fetching, and Tailwind CSS for styling.
 
